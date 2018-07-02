@@ -1,0 +1,18 @@
+language: node_js
+os:
+  - linux
+  - osx
+node_js:
+  - "8"
+install:
+  - npm install -g esy@0.1.23
+script:
+  - esyi
+  - esy build
+  - esy which ocaml
+cache:
+  # default timeout is 180 but it takes longer sometimes
+  timeout: 360
+  # this caches esy build store and esy install cache too
+  directories:
+  - $HOME/.esy/
