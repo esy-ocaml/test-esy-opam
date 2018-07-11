@@ -118,7 +118,7 @@ for (let toolchain of toolchains) {
 
   for (let pkg in pkgs) {
 
-    console.log(`Testing ${pkg} with ocaml@${toolchain}`);
+    console.log(`*** Testing ${pkg} with ocaml@${toolchain} ***`);
     const sandboxPath = path.join('_build', toolchain, pkg);
 
     const packageJson = {
