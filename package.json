@@ -1,5 +1,7 @@
 {
   "name": "test-esy-opam",
   "version": "1.0.0",
-  "dependencies": {}
+  "dependencies": {
+    "rimraf": "*"
+  }
 }
