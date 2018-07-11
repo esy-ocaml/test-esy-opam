@@ -9,9 +9,7 @@ before_install:
 install:
   - npm install -g esy@0.1.25
 script:
-  - esyi --solve-timeout 60
-  - esy build
-  - esy which ocaml
+  - node test.js
 cache:
   # default timeout is 180 but it takes longer sometimes
   timeout: 360
