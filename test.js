@@ -107,6 +107,9 @@ const path = require('path');
 const ESYI = process.env.ESYI || 'esyi';
 const ESY = process.env.ESY || 'esy';
 
+child_process.execSync(`which ${ESYI}`, {stdio: 'inherit'});
+child_process.execSync(`which ${ESY}`, {stdio: 'inherit'});
+
 fs.mkdirSync('_build');
 
 for (let toolchain of toolchains) {
