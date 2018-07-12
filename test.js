@@ -99,6 +99,8 @@ const cases = [
   {name: "async_unix", toolchains: ["~4.6.0"]},
   {name: "async_extra", toolchains: ["~4.6.0"]},
   {name: "async", toolchains: ["~4.6.0"]},
+  {name: "cudf", toolchains: ["~4.6.0"]},
+  {name: "dose3", toolchains: ["~4.6.0"]},
 ];
 
 const child_process = require('child_process');
