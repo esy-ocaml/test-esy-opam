@@ -57,7 +57,6 @@ const cases = [
   {name: "ppx_js_style", toolchains: ["~4.6.0"]},
   {name: "uchar", toolchains: ["~4.6.0"]},
   {name: "ppx_expect", toolchains: ["~4.6.0"]},
-  {name: "ppx_jane", toolchains: ["~4.6.0"]},
   {name: "ppx_here", toolchains: ["~4.6.0"]},
   {name: "ppx_assert", toolchains: ["~4.6.0"]},
   {name: "ppx_typerep_conv", toolchains: ["~4.6.0"]},
@@ -73,6 +72,7 @@ const cases = [
   {name: "ppx_derivers", toolchains: ["~4.6.0"]},
   {name: "base64", toolchains: ["~4.6.0"]},
   {name: "ppx_traverse", toolchains: ["~4.6.0"]},
+  {name: "ppx_jane", toolchains: ["~4.6.0"]},
   {name: "uutf", toolchains: ["~4.6.0"]},
   {name: "ocp-build", toolchains: ["~4.6.0"]},
   {name: "merlin", toolchains: ["~4.6.0"]},
@@ -96,6 +96,9 @@ const cases = [
   {name: "astring", toolchains: ["~4.6.0"]},
   {name: "bisect_ppx", toolchains: ["~4.6.0"]},
   {name: "jsonm", toolchains: ["~4.6.0"]},
+  {name: "async_unix", toolchains: ["~4.6.0"]},
+  {name: "async_extra", toolchains: ["~4.6.0"]},
+  {name: "async", toolchains: ["~4.6.0"]},
 ];
 
 const child_process = require('child_process');
@@ -113,6 +116,8 @@ const cwd = __dirname;
 
 rmSync(path.join(cwd, '_build'));
 fs.mkdirSync(path.join(cwd, '_build'));
+
+let reposUpdated = false;
 
 for (let c of cases) {
 
@@ -141,7 +146,14 @@ for (let c of cases) {
       JSON.stringify(packageJson, null, 2)
     );
 
-    child_process.execSync(`${ESYI}`, {
+    let esyiCommand = ESYI;
+    if (reposUpdated) {
+      esyiCommand = `${esyiCommand} --skip-repository-update`;
+    } else {
+      reposUpdated = true;
+    }
+
+    child_process.execSync(esyiCommand, {
       cwd: sandboxPath,
       stdio: 'inherit',
     });
