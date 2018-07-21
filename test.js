@@ -108,10 +108,8 @@ const fs = require('fs');
 const path = require('path');
 const rmSync = require('rimraf').sync;
 
-const ESYI = process.env.ESYI || 'esyi';
 const ESY = process.env.ESY || 'esy';
 
-child_process.execSync(`which ${ESYI}`, {stdio: 'inherit'});
 child_process.execSync(`which ${ESY}`, {stdio: 'inherit'});
 
 const cwd = __dirname;
@@ -148,14 +146,14 @@ for (let c of cases) {
       JSON.stringify(packageJson, null, 2)
     );
 
-    let esyiCommand = ESYI;
+    let installCommand = `${ESY} install`;
     if (reposUpdated) {
-      esyiCommand = `${esyiCommand} --skip-repository-update`;
+      installCommand = `${ESY} install --skip-repository-update`;
     } else {
       reposUpdated = true;
     }
 
-    child_process.execSync(esyiCommand, {
+    child_process.execSync(installCommand, {
       cwd: sandboxPath,
       stdio: 'inherit',
     });

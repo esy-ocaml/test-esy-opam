@@ -7,13 +7,7 @@ node_js:
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y zlib1g-dev libgmp-dev; fi
 install:
-  - npm install -g esy@0.1.32
+  - npm install -g esy@0.1.33
   - npm install
 script:
   - node test.js
-cache:
-  # default timeout is 180 but it takes longer sometimes
-  timeout: 360
-  # this caches esy build store and esy install cache too
-  directories:
-  - $HOME/.esy/
