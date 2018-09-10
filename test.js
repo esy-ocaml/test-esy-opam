@@ -119,6 +119,14 @@ fs.mkdirSync(path.join(cwd, '_build'));
 
 let reposUpdated = false;
 
+child_process.execSync('git clone https://github.com/esy-ocaml/esy-opam-override.git', {
+  stdio: 'inherit',
+});
+
+child_process.execSync('bash -c "cd esy-opam-override; git checkout 6.x"', {
+  stdio: 'inherit',
+});
+
 for (let c of cases) {
 
   fs.mkdirSync(path.join(cwd, '_build', c.name));
@@ -146,9 +154,9 @@ for (let c of cases) {
       JSON.stringify(packageJson, null, 2)
     );
 
-    let installCommand = `${ESY} install`;
+    let installCommand = `${ESY} install --opam-override-repository=:${cwd}/esy-opam-override`;
     if (reposUpdated) {
-      installCommand = `${ESY} install --skip-repository-update`;
+      installCommand = `${ESY} install --opam-override-repository=:${cwd}/esy-opam-override --skip-repository-update`;
     } else {
       reposUpdated = true;
     }
